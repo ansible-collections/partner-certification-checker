@@ -31,6 +31,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
 
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
       - name: Ensure ansible-core and galaxy-importer is installed
         shell: bash
         run: |
@@ -45,7 +50,7 @@ jobs:
           RUN_ANSIBLE_LINT=${{ env.RUN_ANSIBLE_LINT }}
           EOF
 
-          export GALAXY_IMPORTER_CONFIG=/tmp/galaxy-importer.cfg
+          echo "GALAXY_IMPORTER_CONFIG=/tmp/galaxy-importer.cfg" >> "${GITHUB_ENV}"
 
       - name: Build the collection tarball and run galaxy importer on it
         shell: bash
