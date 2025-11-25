@@ -21,7 +21,7 @@ Some common reasons for certification rejections include:
 - Missing or unclear sections in the project README.
 Refer to the [Ansible Certified Collections README Template](https://access.redhat.com/articles/7068606) for all information that your README must contain.
 - Missing changelog entries for each collection version.
-We recommend using the [antsibull-changelog](https://ansible.readthedocs.io/projects/antsibull-changelog/) tool for changelog generation.
+We recommend using the [antsibull-changelog](https://docs.ansible.com/projects/antsibull-changelog/) tool for changelog generation.
 
 Additionally, certified collections must follow guidelines for dependency management such as:
 
