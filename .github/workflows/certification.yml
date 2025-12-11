@@ -1,4 +1,9 @@
 ---
+# This workflow calls the latest version of the
+# reusable workflow.
+# You can copy this file into your respository if
+# you want to check against pinned versions of
+# Automation Hub tests.
 name: Run collection certification checks
 
 on:

@@ -1,8 +1,9 @@
 ---
-# Ansible collection certification main workflow.
-# Contains tests run by Galaxy-importer on Automation Hub.
-# For additional testing options, see
-# https://github.com/ansible-collections/certification#optional
+# Ansible collection certification standalone workflow.
+# Contains latest versions of tests for certified
+# collections on Automation Hub.
+# Copy this file into your repository if you want to
+# manage the workflow yourself.
 name: "Run latest collection certification checks"
 
 permissions:
