@@ -3,7 +3,7 @@
 # Contains pinned versions of tests for certified
 # collections on Automation Hub.
 # This workflow is managed by Red Hat and can be
-# is called by certification.yml or another workflow.
+# called by certification.yml or another workflow.
 name: "Run versioned collection certification checks"
 
 permissions:
