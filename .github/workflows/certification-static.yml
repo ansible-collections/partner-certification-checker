@@ -92,7 +92,12 @@ jobs:
       - name: Run ansible-lint
         run: ansible-lint --profile=production -x sanity
 
-  # Run sanity checks against the collection
+  # Run sanity checks against the collection.
+  # If there are sanity test failures that cannot be fixed and are allowed to ignore
+  # https://docs.ansible.com/projects/lint/rules/sanity/, create a sanity ignore file
+  # https://docs.ansible.com/projects/ansible/devel/dev_guide/testing/sanity/ignores.html#ignore-file-location
+  # for each affected version of ansible-core (for example, `tests/sanity/ignore-2.18.txt`)
+  # and add corresponding entries.
   sanity:
     name: Sanity (Ⓐ${{ matrix.ansible }})
     runs-on: ubuntu-latest
