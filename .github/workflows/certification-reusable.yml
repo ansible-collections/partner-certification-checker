@@ -17,7 +17,7 @@ on:
           ansible-core version to use (e.g. 2.16.0).
           The stable-X.Y branch is derived automatically for sanity tests.
         required: false
-        default: '2.16.0'
+        default: "2.16.0"
         type: string
       python-versions:
         description: >-
@@ -25,6 +25,13 @@ on:
           (e.g. '["3.7", "3.8", "3.9", "3.10", "3.11", "3.12"]').
         required: false
         default: '["3.6", "3.7", "3.8", "3.9", "3.10", "3.11", "3.12"]'
+        type: string
+      collection-root:
+        description: >-
+          Path to the collection root directory (where galaxy.yml lives).
+          Defaults to the repository root.
+        required: false
+        default: '.'
         type: string
 
 jobs:
@@ -112,6 +119,18 @@ jobs:
       - name: Install ansible-lint
         run: pip install ansible-lint==${{ env.LINT_VER }}
 
+      - name: Checkout validation scripts
+        uses: actions/checkout@v6
+        with:
+          repository: ansible-collections/partner-certification-checker
+          ref: ${{ github.workflow_sha }}
+          path: .partner-certification-checker
+          sparse-checkout: .github/scripts
+          persist-credentials: false
+
+      - name: Validate collection dependencies are in requirements.yml
+        run: python .partner-certification-checker/.github/scripts/validate_collection_dependencies.py ${{ inputs.collection-root }}
+
       - name: Run ansible-lint
         run: ansible-lint --profile=production -x sanity
 
@@ -131,7 +150,7 @@ jobs:
       - name: Perform sanity testing
         # See the documentation for the following GitHub action on
         # https://github.com/ansible-community/ansible-test-gh-action/blob/main/README.md
-        uses: ansible-community/ansible-test-gh-action@d3a8ec7a59694e25e210fcd44738910149537f0e  # v1.17.0
+        uses: ansible-community/ansible-test-gh-action@d3a8ec7a59694e25e210fcd44738910149537f0e # v1.17.0
         with:
           ansible-core-version: ${{ needs.compute-versions.outputs.stable-ansible }}
           testing-type: sanity
