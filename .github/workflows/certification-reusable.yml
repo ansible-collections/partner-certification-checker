@@ -125,13 +125,19 @@ jobs:
           repository: ansible-collections/partner-certification-checker
           ref: ${{ github.workflow_sha }}
           path: .partner-certification-checker
-          sparse-checkout: .github/scripts
+          sparse-checkout: noxfile.py
           # Ensure we only check out the above directory
           sparse-checkout-cone-mode: false
           persist-credentials: false
 
+      - name: Setup nox
+        uses: wntrblm/nox@2026.02.09
+        with:
+          python-versions: "3.12"
+
       - name: Validate collection dependencies are in requirements.yml
-        run: python .partner-certification-checker/.github/scripts/validate_collection_dependencies.py ${{ inputs.collection-root }}
+        run: nox -s validate_dependencies -- ${{ inputs.collection-root }}
+        working-directory: .partner-certification-checker
 
       - name: Run ansible-lint
         run: ansible-lint --profile=production -x sanity
