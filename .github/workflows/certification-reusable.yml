@@ -31,7 +31,7 @@ on:
           Path to the collection root directory (where galaxy.yml lives).
           Defaults to the repository root.
         required: false
-        default: '.'
+        default: "."
         type: string
 
 jobs:
@@ -126,6 +126,8 @@ jobs:
           ref: ${{ github.workflow_sha }}
           path: .partner-certification-checker
           sparse-checkout: .github/scripts
+          # Ensure we only check out the above directory
+          sparse-checkout-cone-mode: false
           persist-credentials: false
 
       - name: Validate collection dependencies are in requirements.yml
