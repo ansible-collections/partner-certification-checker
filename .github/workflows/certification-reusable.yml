@@ -94,7 +94,7 @@ jobs:
 
       - name: Build the collection tarball and run galaxy importer on it
         shell: bash
-        run: python -m galaxy_importer.main --git-clone-path "${{ env.COLLECTION_ROOT }}" --output-path /tmp
+        run: python -m galaxy_importer.main --git-clone-path "${COLLECTION_ROOT}" --output-path /tmp
 
   # Run ansible-lint with profile "production"
   # and skipping sanity checks as they run as a separate job
@@ -124,7 +124,7 @@ jobs:
         run: pip install ansible-lint==${{ env.LINT_VER }}
 
       - name: Run ansible-lint
-        run: ansible-lint --profile=production -x sanity --project-dir "${{ env.COLLECTION_ROOT }}"
+        run: ansible-lint --profile=production -x sanity --project-dir "${COLLECTION_ROOT}"
 
   # Run sanity checks against the collection
   sanity:
