@@ -3,7 +3,7 @@ releases:
   0.1.0:
     changes:
       minor_changes:
-      - Example changelog entry.
+        - Example changelog entry.
     fragments:
-    - test.yml
-    release_date: '2026-03-23'
+      - test.yml
+    release_date: "2026-03-23"
