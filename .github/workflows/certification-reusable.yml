@@ -124,7 +124,15 @@ jobs:
         run: pip install ansible-lint==${{ env.LINT_VER }}
 
       - name: Run ansible-lint
-        run: ansible-lint --profile=production -x sanity --project-dir "${COLLECTION_ROOT}"
+        # We must change directory first prior to running ansible-lint
+        # if a collection root other than the default has been provided.
+        # If we do not, ansible-lint does not install the collection itself.
+        # Using --project-dir or passing the path to the collection as the positional argument do not work.
+        run: |
+          if [ "${COLLECTION_ROOT}" != "." ]; then
+            cd "${COLLECTION_ROOT}"
+          fi
+          ansible-lint --profile=production --skip-list sanity
 
   # Run sanity checks against the collection
   sanity:
