@@ -1,0 +1,19 @@
+---
+namespace: "local"
+name: "test_collection"
+version: 0.1.0
+readme: README.md
+authors:
+  - Ansible community and partner engineering team
+
+description: Minimal test collection for collection-root input testing
+license_file: LICENSE
+
+tags: ["tools", "certification", "workflows", "test"]
+
+dependencies: {}
+
+repository: https://github.com/ansible-collections/partner-certification-checker
+documentation: https://github.com/ansible-collections/partner-certification-checker/blob/main/README.md
+homepage: https://github.com/ansible-collections/partner-certification-checker/blob/main/README.md
+issues: https://github.com/ansible-collections/partner-certification-checker/issues
