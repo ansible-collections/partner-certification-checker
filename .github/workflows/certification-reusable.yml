@@ -29,6 +29,9 @@ on:
       collection-root:
         description: >-
           Relative path to the collection root in the repository.
+          This input should only be used when the collection is
+          in a non standard location (not at the root of the
+          repository).
         default: "."
         type: string
 
