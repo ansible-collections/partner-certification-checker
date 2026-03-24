@@ -130,6 +130,7 @@ jobs:
         # Using --project-dir or passing the path to the collection as the positional argument do not work.
         run: |
           if [ "${COLLECTION_ROOT}" != "." ]; then
+            echo "Changing directory based on collection root ${COLLECTION_ROOT}"
             cd "${COLLECTION_ROOT}"
           fi
           ansible-lint --profile=production --skip-list sanity
