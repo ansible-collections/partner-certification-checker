@@ -130,7 +130,7 @@ jobs:
         # We must change directory first prior to running ansible-lint
         # if a collection root other than the default has been provided.
         # If we do not, ansible-lint does not install the collection itself.
-        # Using --project-dir or passing the relative path to the collection 
+        # Using --project-dir or passing the relative path to the collection
         # as the positional argument do not work.
         run: |
           if [ "${COLLECTION_ROOT}" != "." ]; then
