@@ -17,7 +17,7 @@ on:
           ansible-core version to use (e.g. 2.16.0).
           The stable-X.Y branch is derived automatically for sanity tests.
         required: false
-        default: "2.16.0"
+        default: '2.16.0'
         type: string
       python-versions:
         description: >-
