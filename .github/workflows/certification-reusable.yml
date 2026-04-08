@@ -34,6 +34,15 @@ on:
           repository).
         default: "."
         type: string
+      automation-hub:
+        type: boolean
+        description: >-
+          Configure Red Hat Ansible Automation Hub as a Galaxy server
+          for ansible-galaxy to use when installing collections.
+        default: false
+    secrets:
+      ah_token:
+        required: false
 
 jobs:
   # Derive stable-X.Y from the ansible-core-version input for use in the
@@ -95,6 +104,31 @@ jobs:
 
           echo "GALAXY_IMPORTER_CONFIG=/tmp/galaxy-importer.cfg" >> "${GITHUB_ENV}"
 
+      # secrets-outside-env: This is a reusable workflow; the calling
+      # workflow controls the environment, not this one.
+      - name: Update ansible.cfg with Red Hat Ansible Automation Hub
+        if: ${{ inputs.automation-hub }}
+        shell: bash
+        env:
+          AH_TOKEN: ${{ secrets.ah_token }} # zizmor: ignore[secrets-outside-env]
+        run: |
+          [[ "${{ secrets.ah_token != '' }}" == "true" ]] || { # zizmor: ignore[secrets-outside-env]
+            echo "::error::ah_token secret is required when automation-hub is enabled"
+            exit 1
+          }
+
+          cat > /tmp/ansible.cfg << EOF
+          [galaxy]
+          server_list = rh_automation_hub
+
+          [galaxy_server.rh_automation_hub]
+          url=https://cloud.redhat.com/api/automation-hub/
+          auth_url=https://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/token
+          token=${AH_TOKEN}
+          EOF
+
+          echo "ANSIBLE_CONFIG=/tmp/ansible.cfg" >> "${GITHUB_ENV}"
+
       - name: Build the collection tarball and run galaxy importer on it
         shell: bash
         run: python -m galaxy_importer.main --git-clone-path "${COLLECTION_ROOT}" --output-path /tmp
@@ -125,6 +159,31 @@ jobs:
 
       - name: Install ansible-lint
         run: pip install ansible-lint==${{ env.LINT_VER }}
+
+      # secrets-outside-env: This is a reusable workflow; the calling
+      # workflow controls the environment, not this one.
+      - name: Update ansible.cfg with Red Hat Ansible Automation Hub
+        if: ${{ inputs.automation-hub }}
+        shell: bash
+        env:
+          AH_TOKEN: ${{ secrets.ah_token }} # zizmor: ignore[secrets-outside-env]
+        run: |
+          [[ "${{ secrets.ah_token != '' }}" == "true" ]] || { # zizmor: ignore[secrets-outside-env]
+            echo "::error::ah_token secret is required when automation-hub is enabled"
+            exit 1
+          }
+
+          cat > /tmp/ansible.cfg << EOF
+          [galaxy]
+          server_list = rh_automation_hub
+
+          [galaxy_server.rh_automation_hub]
+          url=https://cloud.redhat.com/api/automation-hub/
+          auth_url=https://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/token
+          token=${AH_TOKEN}
+          EOF
+
+          echo "ANSIBLE_CONFIG=/tmp/ansible.cfg" >> "${GITHUB_ENV}"
 
       - name: Run ansible-lint
         # We must change directory first prior to running ansible-lint
