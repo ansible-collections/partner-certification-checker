@@ -42,7 +42,7 @@ releases:
       minor_changes:
       - certification-reusable.yml - Implement support for installing collections
         from Red Hat Ansible Automation Hub using the ``automation-hub`` input and
-        ``ah_token`` secret in the ``build-import`` and ``lint`` jobs.
+        ``ah_token`` secret in the ``build-import``, ``lint``, and ``sanity`` jobs.
       release_summary: Add support for configuring Red Hat Ansible Automation Hub
         as a Galaxy server for collection dependency resolution.
     fragments:
