@@ -39,9 +39,13 @@ on:
         description: >-
           Configure Red Hat Ansible Automation Hub as a Galaxy server
           for ansible-galaxy to use when installing collections.
+          The 'ah_token' secret must be provided when using this input.
         default: false
     secrets:
       ah_token:
+        description: >-
+          Token used to authenticate with Red Hat Ansible Automation Hub.
+          Use the 'ah_token' secret when the automation-hub input boolean is true.
         required: false
 
 jobs:
@@ -239,7 +243,7 @@ jobs:
       - name: Perform sanity testing
         # See the documentation for the following GitHub action on
         # https://github.com/ansible-community/ansible-test-gh-action/blob/main/README.md
-        uses: ansible-community/ansible-test-gh-action@d3a8ec7a59694e25e210fcd44738910149537f0e  # v1.17.0
+        uses: ansible-community/ansible-test-gh-action@d3a8ec7a59694e25e210fcd44738910149537f0e # v1.17.0
         with:
           ansible-core-version: ${{ needs.compute-versions.outputs.stable-ansible }}
           testing-type: sanity
