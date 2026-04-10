@@ -39,13 +39,13 @@ on:
         description: >-
           Configure Red Hat Ansible Automation Hub as a Galaxy server
           for ansible-galaxy to use when installing collections.
-          The 'ah_token' secret must be provided when using this input.
+          The 'AH_TOKEN' secret must be provided when using this input.
         default: false
     secrets:
-      ah_token:
+      AH_TOKEN:
         description: >-
           Token used to authenticate with Red Hat Ansible Automation Hub.
-          Use the 'ah_token' secret when the automation-hub input boolean is true.
+          Use the 'AH_TOKEN' secret when the automation-hub input boolean is true.
         required: false
 
 jobs:
@@ -114,10 +114,10 @@ jobs:
         if: ${{ inputs.automation-hub }}
         shell: bash
         env:
-          AH_TOKEN: ${{ secrets.ah_token }} # zizmor: ignore[secrets-outside-env]
+          AH_TOKEN: ${{ secrets.AH_TOKEN }} # zizmor: ignore[secrets-outside-env]
         run: |
           [[ -n "${AH_TOKEN}" ]] || {
-            echo "::error::ah_token secret is required when automation-hub is enabled"
+            echo "::error::AH_TOKEN secret is required when automation-hub is enabled"
             exit 1
           }
 
@@ -170,10 +170,10 @@ jobs:
         if: ${{ inputs.automation-hub }}
         shell: bash
         env:
-          AH_TOKEN: ${{ secrets.ah_token }} # zizmor: ignore[secrets-outside-env]
+          AH_TOKEN: ${{ secrets.AH_TOKEN }} # zizmor: ignore[secrets-outside-env]
         run: |
           [[ -n "${AH_TOKEN}" ]] || {
-            echo "::error::ah_token secret is required when automation-hub is enabled"
+            echo "::error::AH_TOKEN secret is required when automation-hub is enabled"
             exit 1
           }
 
@@ -218,10 +218,10 @@ jobs:
         if: ${{ inputs.automation-hub }}
         shell: bash
         env:
-          AH_TOKEN: ${{ secrets.ah_token }} # zizmor: ignore[secrets-outside-env]
+          AH_TOKEN: ${{ secrets.AH_TOKEN }} # zizmor: ignore[secrets-outside-env]
         run: |
           [[ -n "${AH_TOKEN}" ]] || {
-            echo "::error::ah_token secret is required when automation-hub is enabled"
+            echo "::error::AH_TOKEN secret is required when automation-hub is enabled"
             exit 1
           }
 
