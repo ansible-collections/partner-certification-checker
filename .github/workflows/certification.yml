@@ -14,12 +14,11 @@ on:
     branches: [main]
   workflow_dispatch:
   schedule:
-    - cron: '0 6 * * *'
+    - cron: "0 6 * * *"
 
 concurrency:
   group: cert-ver-${{ github.head_ref || github.run_id }}
   cancel-in-progress: true
-
 
 # Files that are not related to the core functionality
 # of your collection can cause Ansible Lint to fail.
@@ -44,3 +43,8 @@ jobs:
     #   ansible-core-version: '2.17.0'
     #   python-versions: '["3.7", "3.8", "3.9", "3.10", "3.11", "3.12"]'
     #   collection-root: 'ansible_collections/junipernetworks/junos'
+    #   automation-hub: true
+    # Uncomment the lines below if you have 'automation-hub: true' and need to install collections from Red Hat Ansible Automation Hub.
+    # This requires setting a repository secret called 'AH_TOKEN' which value contains a Red Hat Ansible Automation Hub token.
+    # secrets:
+    #   AH_TOKEN: ${{ secrets.AH_TOKEN }}
