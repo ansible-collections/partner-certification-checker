@@ -116,7 +116,7 @@ jobs:
         env:
           AH_TOKEN: ${{ secrets.ah_token }} # zizmor: ignore[secrets-outside-env]
         run: |
-          [[ "${{ secrets.ah_token != '' }}" == "true" ]] || { # zizmor: ignore[secrets-outside-env]
+          [[ -n "${AH_TOKEN}" ]] || {
             echo "::error::ah_token secret is required when automation-hub is enabled"
             exit 1
           }
@@ -172,7 +172,7 @@ jobs:
         env:
           AH_TOKEN: ${{ secrets.ah_token }} # zizmor: ignore[secrets-outside-env]
         run: |
-          [[ "${{ secrets.ah_token != '' }}" == "true" ]] || { # zizmor: ignore[secrets-outside-env]
+          [[ -n "${AH_TOKEN}" ]] || {
             echo "::error::ah_token secret is required when automation-hub is enabled"
             exit 1
           }
@@ -220,7 +220,7 @@ jobs:
         env:
           AH_TOKEN: ${{ secrets.ah_token }} # zizmor: ignore[secrets-outside-env]
         run: |
-          [[ "${{ secrets.ah_token != '' }}" == "true" ]] || { # zizmor: ignore[secrets-outside-env]
+          [[ -n "${AH_TOKEN}" ]] || {
             echo "::error::ah_token secret is required when automation-hub is enabled"
             exit 1
           }
