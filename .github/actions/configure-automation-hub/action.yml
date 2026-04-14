@@ -1,0 +1,38 @@
+---
+name: Configure Red Hat Ansible Automation Hub
+description: >-
+  Configure an ansible.cfg file with Red Hat Ansible Automation Hub
+  as a Galaxy server for collection dependency resolution.
+
+inputs:
+  ah-token:
+    description: >-
+      Token used to authenticate with Red Hat Ansible Automation Hub.
+    required: true
+
+runs:
+  using: composite
+  steps:
+    # secrets-outside-env: This is a reusable workflow; the calling
+    # workflow controls the environment, not this one.
+    - name: Update ansible.cfg with Red Hat Ansible Automation Hub
+      shell: bash
+      env:
+        AH_TOKEN: ${{ inputs.ah-token }}
+      run: |
+        [[ -n "${AH_TOKEN}" ]] || {
+          echo "::error::AH_TOKEN secret is required when automation-hub is enabled"
+          exit 1
+        }
+
+        cat > /tmp/ansible.cfg << EOF
+        [galaxy]
+        server_list = rh_automation_hub
+
+        [galaxy_server.rh_automation_hub]
+        url=https://cloud.redhat.com/api/automation-hub/
+        auth_url=https://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/token
+        token=${AH_TOKEN}
+        EOF
+
+        echo "ANSIBLE_CONFIG=/tmp/ansible.cfg" >> "${GITHUB_ENV}"
