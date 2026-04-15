@@ -110,7 +110,7 @@ jobs:
 
       - name: Configure Red Hat Ansible Automation Hub
         if: ${{ inputs.automation-hub }}
-        uses: dbrennand/partner-certification-checker/.github/actions/configure-automation-hub@ACA-5377
+        uses: ansible-collections/partner-certification-checker/.github/actions/configure-automation-hub@main
         with:
           ah-token: ${{ secrets.AH_TOKEN }} # zizmor: ignore[secrets-outside-env]
 
@@ -147,7 +147,7 @@ jobs:
 
       - name: Configure Red Hat Ansible Automation Hub
         if: ${{ inputs.automation-hub }}
-        uses: dbrennand/partner-certification-checker/.github/actions/configure-automation-hub@ACA-5377
+        uses: ansible-collections/partner-certification-checker/.github/actions/configure-automation-hub@main
         with:
           ah-token: ${{ secrets.AH_TOKEN }} # zizmor: ignore[secrets-outside-env]
 
@@ -176,7 +176,7 @@ jobs:
     steps:
       - name: Configure Red Hat Ansible Automation Hub
         if: ${{ inputs.automation-hub }}
-        uses: dbrennand/partner-certification-checker/.github/actions/configure-automation-hub@ACA-5377
+        uses: ansible-collections/partner-certification-checker/.github/actions/configure-automation-hub@main
         with:
           ah-token: ${{ secrets.AH_TOKEN }} # zizmor: ignore[secrets-outside-env]
 
