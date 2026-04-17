@@ -15,7 +15,7 @@ This release adds support for configuring Red Hat Ansible Automation Hub as a Ga
 Minor Changes
 -------------
 
-- certification.yml, certification-reusable.yml - Add the ``automation-hub`` input to configure Red Hat Ansible Automation Hub as a Galaxy server for collection dependency resolution using a new composite action.
+- certification.yml, certification-reusable.yml - Add the ``automation-hub`` input to configure Red Hat Ansible Automation Hub as a Galaxy server for collection dependency resolution using a new composite action. The ``AH_TOKEN`` secret must be provided when using this input.
 
 v1.0.0
 ======
