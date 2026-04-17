@@ -4,6 +4,19 @@ Partner Certification Checker Release Notes
 
 .. contents:: Topics
 
+v1.1.0
+======
+
+Release Summary
+---------------
+
+This release adds support for configuring Red Hat Ansible Automation Hub as a Galaxy server for collection dependency resolution.
+
+Minor Changes
+-------------
+
+- certification.yml, certification-reusable.yml - Add the ``automation-hub`` input to configure Red Hat Ansible Automation Hub as a Galaxy server for collection dependency resolution using a new composite action.
+
 v1.0.0
 ======
 
