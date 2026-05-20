@@ -49,3 +49,11 @@ If you want to modify and maintain the certification checker, you can use the `.
 
 You must update the list of `ansible-core` versions in the `sanity.strategy.matrix.ansible` section of the workflow when new versions of `ansible-core` are released.
 Refer to default `ansible-core` versions in the `Ansible Automation Platform Installation Requirements` section of the [Red Hat Ansible Automation Platform Life Cycle](https://access.redhat.com/support/policy/updates/ansible-automation-platform#installation) document.
+
+## Community
+
+- [Contributing](CONTRIBUTING.md) - How to contribute to this project
+- [Code of Conduct](CODE_OF_CONDUCT.md) - Ansible Community Code of Conduct
+- [Security Policy](SECURITY.md) - How to report security vulnerabilities
+- [License](COPYING) - GPL-3.0
+
