@@ -1,53 +1,27 @@
-# Contributing to partner-certification-checker
+# WELCOME TO ANSIBLE GITHUB
 
-Thank you for your interest in contributing to **partner-certification-checker**!
+Hi! Nice to see you here!
 
-## How to Contribute
+## QUESTIONS ?
 
-### Reporting Issues
+Please see the [Community Guide](https://docs.ansible.com/ansible/latest/community/index.html) for information on how to ask questions on the [mailing lists](https://docs.ansible.com/ansible/latest/community/communication.html#mailing-list-information) and IRC.
 
-- Check existing issues before creating a new one
-- Use the issue templates if available
-- Include steps to reproduce, expected behavior, and actual behavior
+The GitHub issue tracker is not the best place for questions for various reasons, but both IRC and the mailing list are very helpful places for those things, as the community page explains best.
 
-### Submitting Changes
+## CONTRIBUTING ?
 
-1. Fork the repository
-2. Create a feature branch from `main`: `git checkout -b feat/my-feature`
-3. Make your changes following the project conventions
-4. Write or update tests as needed
-5. Ensure all CI checks pass
-6. Submit a pull request with a clear description
+By contributing to this project you agree to the Developer Certificate of Origin (DCO). This document was created by the Linux Kernel community and is a simple statement that you, as a contributor, have the legal right to make the contribution.
 
-### Pull Request Guidelines
+You can read more about the [DCO and Contributor License Agreements](https://docs.ansible.com/ansible/latest/community/collection_contributors/collection_requirements.html#contributor-license-agreements) on the Ansible docsite.
 
-- Keep PRs focused on a single change
-- Write meaningful commit messages
-- Update documentation if your change affects user-facing behavior
-- Update CHANGELOG.md with a summary of your changes
-- Ensure CI passes before requesting review
+Please review the [Community Guide](https://docs.ansible.com/ansible/latest/community/index.html) for more information on contributing to Ansible.
 
-### Code Style
+## BUG TO REPORT ?
 
-- Follow existing patterns in the codebase
-- Use consistent naming conventions
-- Add comments only when the "why" is non-obvious
+First and foremost, also check the [Community Guide](https://docs.ansible.com/ansible/latest/community/index.html).
 
-### Development Setup
+You can report bugs or make enhancement requests at the [Ansible GitHub issue page](http://github.com/ansible/ansible/issues/new/choose) by filling out the issue template that will be presented.
 
-```bash
-git clone https://github.com/stevefulme1/partner-certification-checker.git
-cd partner-certification-checker
-```
+Also please make sure you are testing on the latest released version of Ansible or the development branch; see the [Installation Guide](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html) for details.
 
-See README.md for additional setup instructions.
-
-## Code of Conduct
-
-This project follows the [Contributor Covenant Code of Conduct](CODE_OF_CONDUCT.md).
-All contributors are expected to uphold this code.
-
-## License
-
-By contributing, you agree that your contributions will be licensed under
-the same license as the project (see LICENSE file).
+Thanks!
