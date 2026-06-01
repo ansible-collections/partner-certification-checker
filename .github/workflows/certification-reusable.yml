@@ -23,7 +23,7 @@ on:
       controller-python-version:
         description: >-
           Python version for the controller in ansible-test (e.g. "3.12").
-          Downstream Execution Environments only use Python 3.12.
+          Downstream Execution Environments use Python 3.12.
         required: false
         default: "3.12"
         type: string
@@ -168,7 +168,7 @@ jobs:
     strategy:
       matrix:
         ansible:
-          # Ansible Core versions shipped with Downstream Execution Environments.
+          # Ansible Core versions aligned with Downstream Execution Environments.
           - stable-2.16
           - stable-2.18
           - stable-2.20

@@ -43,7 +43,7 @@ jobs:
     # Sanity tests run automatically against stable-2.16,
     # stable-2.18, and stable-2.20 ansible-core branches
     # and use Python 3.12 as the controller Python version
-    # to match Downstream Execution Environments.
+    # to align with Downstream Execution Environments.
     # with:
     #   ansible-core-version: '2.18.0'
     #   controller-python-version: '3.12'
