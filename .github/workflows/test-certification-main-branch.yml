@@ -18,31 +18,22 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # Test with the default ansible-core version (currently 2.16.0)
-  # and default min Python version (3.6)
+  # Test with the default ansible-core version (currently 2.16.0).
+  # Sanity tests automatically run against stable-2.16, 2.18, and 2.20.
   call-default:
     uses: ./.github/workflows/certification-reusable.yml
 
-  # Test with ansible-core 2.17.x; Python 3.6 is not supported from this version
-  call-2-17:
-    uses: ./.github/workflows/certification-reusable.yml
-    with:
-      ansible-core-version: '2.17.1'
-      python-versions: '["3.7", "3.8", "3.9", "3.10", "3.11", "3.12"]'
-
-  # Test with ansible-core 2.18.x; Python 3.6 is not supported from this version
+  # Test build-import and lint with ansible-core 2.18.x
   call-2-18:
     uses: ./.github/workflows/certification-reusable.yml
     with:
       ansible-core-version: '2.18.0'
-      python-versions: '["3.8", "3.9", "3.10", "3.11", "3.12"]'
 
-  # Test with ansible-core 2.20.x
+  # Test build-import and lint with ansible-core 2.20.x
   call-2-20:
     uses: ./.github/workflows/certification-reusable.yml
     with:
       ansible-core-version: '2.20.0'
-      python-versions: '["3.9", "3.10", "3.11", "3.12", "3.13", "3.14"]'
 
   # Test when the collection root is not at the root of the repository
   call-collection-root:
