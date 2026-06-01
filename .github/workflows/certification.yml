@@ -38,13 +38,15 @@ concurrency:
 jobs:
   call:
     uses: ansible-collections/partner-certification-checker/.github/workflows/certification-reusable.yml@v2.0.0 # zizmor: ignore[unpinned-uses]
-    # If the minimal Ansible Core version your collection supports Ansible
-    # is greater than 2.16.0, specify it below.
-    # You might also have to specify Python version supported by that version,
-    # see https://docs.ansible.com/projects/ansible/latest/reference_appendices/release_and_maintenance.html#ansible-core-support-matrix
+    # The default ansible-core version for build-import
+    # and lint jobs is 2.16.0.
+    # Sanity tests run automatically against stable-2.16,
+    # stable-2.18, and stable-2.20 ansible-core branches
+    # and use Python 3.12 as the controller Python version
+    # to match Downstream Execution Environments.
     # with:
-    #   ansible-core-version: '2.17.0'
-    #   python-versions: '["3.7", "3.8", "3.9", "3.10", "3.11", "3.12"]'
+    #   ansible-core-version: '2.18.0'
+    #   controller-python-version: '3.12'
     #   collection-root: 'ansible_collections/junipernetworks/junos'
     #   automation-hub: true
     # Uncomment the lines below if you have 'automation-hub: true' and need to install collections from Red Hat Ansible Automation Hub.
