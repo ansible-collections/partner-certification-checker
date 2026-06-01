@@ -24,7 +24,7 @@ on:
           JSON list of Python versions to test against in the sanity matrix
           (e.g. '["3.7", "3.8", "3.9", "3.10", "3.11", "3.12"]').
         required: false
-        default: '["3.6", "3.7", "3.8", "3.9", "3.10", "3.11", "3.12"]'
+        default: '["3.12"]'
         type: string
       collection-root:
         description: >-
