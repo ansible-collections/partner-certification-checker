@@ -200,5 +200,4 @@ jobs:
           pre-test-cmd: >-
             test -f tests/config.yml ||
             (mkdir -p tests &&
-            echo modules: > tests/config.yml &&
-            echo '  python_requires: >=3.12' >> tests/config.yml)
+            printf 'modules:\n  python_requires: \047>=3.12\047\n' > tests/config.yml)
