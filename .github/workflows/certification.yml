@@ -42,11 +42,11 @@ jobs:
     # and lint jobs is 2.16.0.
     # Sanity tests run automatically against stable-2.16,
     # stable-2.18, and stable-2.20 ansible-core branches
-    # and use Python 3.12 as the controller Python version
+    # and use Python 3.12 as the runner Python version
     # to align with Downstream Execution Environments.
     # with:
     #   ansible-core-version: '2.18.0'
-    #   controller-python-version: '3.12'
+    #   origin-python-version: '3.12'
     #   collection-root: 'ansible_collections/junipernetworks/junos'
     #   automation-hub: true
     # Uncomment the lines below if you have 'automation-hub: true' and need to install collections from Red Hat Ansible Automation Hub.

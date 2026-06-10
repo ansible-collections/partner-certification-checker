@@ -15,22 +15,38 @@ breaking_changes:
     been removed from the sanity test step. ``ansible-test`` now
     automatically tests against all Python versions supported by each
     ansible-core version.
+  - >-
+    certification-reusable.yml - The ``controller-python-version`` input has
+    been replaced by ``origin-python-version``. The controller parameter had
+    no effect on sanity tests; ``origin-python-version`` sets the runner
+    environment Python version instead.
 minor_changes:
   - >-
     certification-static.yml - Added ``stable-2.16`` to the sanity test
     matrix to match the default ansible-core version used by the reusable
     workflow.
   - >-
-    certification-reusable.yml - Added the ``controller-python-version``
-    input (default ``"3.12"``) to set the controller Python version for
-    ``ansible-test``. This aligns with downstream Execution Environments
-    that use Python 3.12.
+    certification-reusable.yml - Added the ``origin-python-version``
+    input (default ``"3.12"``) to set the runner environment Python version.
+    This aligns with downstream Execution Environments that use Python 3.12.
   - >-
     certification-reusable.yml - Removed the ``compute-versions`` job as
     it is no longer needed with the hard-coded sanity matrix.
   - >-
-    certification-static.yml - Added ``controller-python-version`` to the
-    sanity test step, set to ``"3.12"``.
+    certification-reusable.yml - Added ``pre-test-cmd`` to the sanity step
+    to create a ``tests/config.yml`` with ``python_requires: ">=3.12"``
+    when the collection does not provide one. This ensures sanity tests
+    only run against Python versions supported by downstream Execution
+    Environments.
+  - >-
+    certification-static.yml - Added ``origin-python-version`` and
+    ``pre-test-cmd`` to the sanity test step.
+  - >-
+    certification-reusable.yml - The ``stable-2.20`` entry in the sanity
+    matrix is now annotated as Technology Preview.
+  - >-
+    certification-static.yml - The ``stable-2.20`` entry in the sanity
+    matrix is now annotated as Technology Preview.
   - >-
     meta/runtime.yml - The minimum required Ansible version has been bumped
     from ``>=2.15.0`` to ``>=2.16.0``.

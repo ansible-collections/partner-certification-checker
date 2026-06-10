@@ -20,10 +20,10 @@ on:
         required: false
         default: "2.16.0"
         type: string
-      controller-python-version:
+      origin-python-version:
         description: >-
-          Python version for the controller in ansible-test (e.g. "3.12").
-          Downstream Execution Environments use Python 3.12.
+          Python version for the GitHub Actions runner environment
+          (e.g. "3.12"). Downstream Execution Environments use Python 3.12.
         required: false
         default: "3.12"
         type: string
@@ -171,7 +171,7 @@ jobs:
           # Ansible Core versions aligned with Downstream Execution Environments.
           - stable-2.16
           - stable-2.18
-          - stable-2.20
+          - stable-2.20  # Technology Preview
 
     steps:
       - name: Configure Red Hat Ansible Automation Hub
@@ -189,7 +189,15 @@ jobs:
         uses: ansible-community/ansible-test-gh-action@d3a8ec7a59694e25e210fcd44738910149537f0e # v1.17.0
         with:
           ansible-core-version: ${{ matrix.ansible }}
-          controller-python-version: ${{ inputs.controller-python-version }}
+          origin-python-version: ${{ inputs.origin-python-version }}
           testing-type: sanity
           collection-root: ${{ inputs.collection-root }}
           pull-request-change-detection: false
+          # Ensure sanity tests only run against Python >= 3.12
+          # to align with downstream Execution Environments.
+          # Only creates tests/config.yml if the collection does
+          # not already provide one.
+          pre-test-cmd: >-
+            test -f tests/config.yml ||
+            (mkdir -p tests &&
+            printf 'modules:\n  python_requires: ">=3.12"\n' > tests/config.yml)
