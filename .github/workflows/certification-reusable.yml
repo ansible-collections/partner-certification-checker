@@ -193,11 +193,3 @@ jobs:
           testing-type: sanity
           collection-root: ${{ inputs.collection-root }}
           pull-request-change-detection: false
-          # Ensure sanity tests only run against Python >= 3.12
-          # to align with downstream Execution Environments.
-          # Only creates tests/config.yml if the collection does
-          # not already provide one.
-          pre-test-cmd: >-
-            test -f tests/config.yml ||
-            (mkdir -p tests &&
-            printf 'modules:\n  python_requires: \047>=3.12\047\n' > tests/config.yml)

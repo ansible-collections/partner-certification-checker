@@ -10,16 +10,6 @@ breaking_changes:
     deriving a single version from the ``ansible-core-version`` input.
     Every call to the reusable workflow now runs sanity tests against all
     three ansible-core versions.
-  - >-
-    certification-reusable.yml - The ``target-python-version`` parameter has
-    been removed from the sanity test step. ``ansible-test`` now
-    automatically tests against all Python versions supported by each
-    ansible-core version.
-  - >-
-    certification-reusable.yml - The ``controller-python-version`` input has
-    been replaced by ``origin-python-version``. The controller parameter had
-    no effect on sanity tests; ``origin-python-version`` sets the runner
-    environment Python version instead.
 minor_changes:
   - >-
     certification-static.yml - Added ``stable-2.16`` to the sanity test
@@ -33,14 +23,8 @@ minor_changes:
     certification-reusable.yml - Removed the ``compute-versions`` job as
     it is no longer needed with the hard-coded sanity matrix.
   - >-
-    certification-reusable.yml - Added ``pre-test-cmd`` to the sanity step
-    to create a ``tests/config.yml`` with ``python_requires: ">=3.12"``
-    when the collection does not provide one. This ensures sanity tests
-    only run against Python versions supported by downstream Execution
-    Environments.
-  - >-
-    certification-static.yml - Added ``origin-python-version`` and
-    ``pre-test-cmd`` to the sanity test step.
+    certification-static.yml - Added ``origin-python-version`` to the
+    sanity test step.
   - >-
     certification-reusable.yml - The ``stable-2.20`` entry in the sanity
     matrix is now annotated as Technology Preview.
