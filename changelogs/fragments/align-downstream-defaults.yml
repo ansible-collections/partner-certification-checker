@@ -10,6 +10,10 @@ breaking_changes:
     deriving a single version from the ``ansible-core-version`` input.
     Every call to the reusable workflow now runs sanity tests against all
     three ansible-core versions.
+  - >-
+    certification-static.yml - The sanity test matrix has been updated to
+    ``stable-2.16``, ``stable-2.18``, and ``stable-2.20``. ``stable-2.17``
+    and ``milestone`` have been removed.
 minor_changes:
   - >-
     certification-static.yml - Added ``stable-2.16`` to the sanity test
