@@ -24,6 +24,7 @@ on:
         description: >-
           Python version for the GitHub Actions runner environment
           (e.g. "3.12"). Downstream Execution Environments use Python 3.12.
+          It is not recommended to change this input under normal circumstances.
         required: false
         default: "3.12"
         type: string
