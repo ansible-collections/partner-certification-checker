@@ -103,7 +103,6 @@ jobs:
         run: python -m galaxy_importer.main --git-clone-path "${COLLECTION_ROOT}" --output-path /tmp
 
   # Run ansible-lint with profile "production"
-  # and skipping sanity checks as they run as a separate job
   lint:
     name: "Lint production"
     runs-on: ubuntu-latest
@@ -171,7 +170,7 @@ jobs:
           # Ansible Core versions aligned with Downstream Execution Environments.
           - stable-2.16
           - stable-2.18
-          - stable-2.20  # Technology Preview
+          - stable-2.20 # Technology Preview
 
     steps:
       - name: Configure Red Hat Ansible Automation Hub
