@@ -46,7 +46,6 @@ jobs:
     # to align with Downstream Execution Environments.
     # with:
     #   ansible-core-version: '2.18.0'
-    #   origin-python-version: '3.12'
     #   collection-root: 'ansible_collections/junipernetworks/junos'
     #   automation-hub: true
     # Uncomment the lines below if you have 'automation-hub: true' and need to install collections from Red Hat Ansible Automation Hub.
