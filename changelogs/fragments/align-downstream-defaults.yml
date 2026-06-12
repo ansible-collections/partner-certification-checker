@@ -32,5 +32,8 @@ minor_changes:
     certification-static.yml - The ``stable-2.20`` entry in the sanity
     matrix is now annotated as Technology Preview.
   - >-
+    certification-static.yml - Removed ``-x sanity`` from the
+    ``ansible-lint`` command so sanity rules are no longer skipped.
+  - >-
     meta/runtime.yml - The minimum required Ansible version has been bumped
     from ``>=2.15.0`` to ``>=2.16.0``.
