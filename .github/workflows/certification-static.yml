@@ -106,7 +106,7 @@ jobs:
           # Ansible Core versions aligned with Downstream Execution Environments.
           - stable-2.16
           - stable-2.18
-          - stable-2.20 # Technology Preview
+          - stable-2.20
 
     steps:
       # Run sanity tests inside a Docker container.

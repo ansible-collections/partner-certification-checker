@@ -38,12 +38,8 @@ concurrency:
 jobs:
   call:
     uses: ansible-collections/partner-certification-checker/.github/workflows/certification-reusable.yml@v2.0.0 # zizmor: ignore[unpinned-uses]
-    # The default ansible-core version for build-import
-    # and lint jobs is 2.16.0.
-    # Sanity tests run automatically against stable-2.16,
-    # stable-2.18, and stable-2.20 ansible-core branches
-    # and use Python 3.12 as the runner Python version
-    # to align with Downstream Execution Environments.
+    # For details on tested ansible-core branches and Python versions,
+    # see: https://github.com/ansible-collections/partner-certification-checker#tested-ansible-core-branches-and-python-versions
     # with:
     #   ansible-core-version: '2.18.0'
     #   collection-root: 'ansible_collections/junipernetworks/junos'

@@ -42,6 +42,18 @@ In this case you should do the following:
 1. Add the corresponding entries to the sanity ignore files.
 1. Commit and push the changes to your repository.
 
+## Tested ansible-core branches and Python versions
+
+The certification checker runs sanity tests against the following ansible-core branches, aligned with downstream Execution Environments:
+
+- `stable-2.16`
+- `stable-2.18`
+- `stable-2.20`
+
+The GitHub Actions `ansible-lint` and `galaxy-importer` jobs use Python 3.12, matching downstream Execution Environments.
+
+The default ansible-core version for the build-import and lint jobs is `2.16.0`.
+
 ## Using the standalone workflow
 
 The `.github/workflows/certification.yml` workflow file calls a reusable workflow that the Ansible Community and Partner Engineering team at Red Hat maintain.
