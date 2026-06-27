@@ -53,11 +53,3 @@ The certification checker runs sanity tests against the following ansible-core b
 The GitHub Actions `ansible-lint` and `galaxy-importer` jobs use Python 3.12, matching downstream Execution Environments.
 
 The default ansible-core version for the build-import and lint jobs is `2.16.0`.
-
-## Using the standalone workflow
-
-The `.github/workflows/certification.yml` workflow file calls a reusable workflow that the Ansible Community and Partner Engineering team at Red Hat maintain.
-If you want to modify and maintain the certification checker, you can use the `.github/workflows/certification-static.yml` workflow file instead.
-
-You must update the list of `ansible-core` versions in the `sanity.strategy.matrix.ansible` section of the workflow when new versions of `ansible-core` are released.
-Refer to default `ansible-core` versions in the `Ansible Automation Platform Installation Requirements` section of the [Red Hat Ansible Automation Platform Life Cycle](https://access.redhat.com/support/policy/updates/ansible-automation-platform#installation) document.
