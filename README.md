@@ -15,6 +15,11 @@ The certification checker runs the same types of checks used during the Automati
 These checks help reduce failed imports and repeat release cycles.
 
 > [!IMPORTANT]
+> This checker runs the types of checks used during the Automation Hub import process.
+> The Ansible collection certification process has other [requirements](https://docs.ansible.com/projects/partner-certification-requirements/)
+> which this checker does not cover.
+
+> [!IMPORTANT]
 > This checker is not a replacement for a complete test strategy.
 > Use it alongside unit and integration tests for your modules, plugins, and roles.
 
