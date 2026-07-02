@@ -8,9 +8,9 @@ The workflow helps Red Hat partners catch common certification issues before upl
 
 The certification checker runs the same types of checks used during the Automation Hub import process, including:
 
-- Galaxy importer checks
-- Ansible Lint checks
-- Ansible sanity tests
+- [Galaxy importer](https://github.com/ansible/galaxy-importer) checks
+- [Ansible Lint](https://docs.ansible.com/projects/lint/) checks
+- [Ansible sanity](https://docs.ansible.com/projects/ansible/latest/dev_guide/testing/sanity/index.html) tests
 
 These checks help reduce failed imports and repeat release cycles.
 
