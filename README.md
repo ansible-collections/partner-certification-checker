@@ -29,22 +29,16 @@ Add the certification workflow to your collection repository.
 
 1. Clone this repository.
 
-1. Create the GitHub workflows directory in your collection repository if it does not already exist:
-
-   ```bash
-   mkdir -p path/to/collection/.github/workflows
-   ```
-
 1. Copy the certification workflow into your collection repository:
 
    ```bash
-   cp partner-certification-checker/.github/workflows/certification.yml path/to/collection/.github/workflows/certification.yml
+   cp partner-certification-checker/.github/workflows/certification.yml <PATH>/<TO>/<COLLECTION>.github/workflows/certification.yml
    ```
 
 1. Commit and push the workflow:
 
    ```bash
-   cd path/to/collection
+   cd <PATH>/<TO>/<COLLECTION>
    git add .github/workflows/certification.yml
    git commit -m "Add certification workflow"
    git push
