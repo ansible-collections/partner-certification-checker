@@ -9,6 +9,11 @@ name: "Run versioned collection certification checks"
 permissions:
   contents: read
 
+env:
+  GALAXY_IMPORTER_VER: "0.4.31"
+  ANSIBLE_LINT_VER: "24.12.2"
+  ANSIBLE_LINT_CORE_2_19_VER: "25.2.0"
+
 on:
   workflow_call:
     inputs:
@@ -59,7 +64,6 @@ jobs:
       CHECK_REQUIRED_TAGS: "True"
       RUN_ANSIBLE_LINT: "False"
       CORE_VER: ${{ inputs.ansible-core-version }}
-      GALAXY_IMPORTER_VER: "0.4.31"
       COLLECTION_ROOT: ${{ inputs.collection-root }}
     runs-on: ubuntu-latest
     steps:
@@ -71,16 +75,14 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
         with:
-          python-version: "3.12"
+          python-version: ${{ inputs.origin-python-version }}
 
       - name: Install ansible-core
-        env:
-          CORE_VER: ${{ inputs.ansible-core-version }}
         run: pip install ansible-core=="${CORE_VER}"
 
       - name: Install galaxy-importer
         shell: bash
-        run: pip install galaxy-importer==${{ env.GALAXY_IMPORTER_VER }}
+        run: pip install galaxy-importer=="${GALAXY_IMPORTER_VER}"
 
       - name: Update galaxy-importer.cfg
         shell: bash
@@ -108,7 +110,7 @@ jobs:
     name: "Lint production"
     runs-on: ubuntu-latest
     env:
-      LINT_VER: "24.12.2"
+      CORE_VER: ${{ inputs.ansible-core-version }}
       COLLECTION_ROOT: ${{ inputs.collection-root }}
     steps:
       - name: Check out code
@@ -119,28 +121,24 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
         with:
-          python-version: "3.12"
+          python-version: ${{ inputs.origin-python-version }}
 
       - name: Install ansible-core
-        env:
-          CORE_VER: ${{ inputs.ansible-core-version }}
         run: pip install ansible-core=="${CORE_VER}"
 
-      # ansible-lint 24.12.2 is incompatible with ansible-core >= 2.19
+      # The default ansible-lint version is incompatible with ansible-core >= 2.19
       # because ansible.parsing.yaml.constructor was removed.
-      # Use ansible-lint >= 25.2.0 for ansible-core 2.19+.
+      # Use the ansible-core 2.19+ ansible-lint version for those runs.
       - name: Determine compatible ansible-lint version based on ansible-core version
-        env:
-          CORE_VER: ${{ inputs.ansible-core-version }}
         run: |
           major_minor=$(echo "${CORE_VER}" | cut -d. -f1,2)
           minor=$(echo "${major_minor}" | cut -d. -f2)
           if [ "${minor}" -ge 19 ]; then
-            echo "LINT_VER=25.2.0" >> "${GITHUB_ENV}"
+            echo "ANSIBLE_LINT_VER=${ANSIBLE_LINT_CORE_2_19_VER}" >> "${GITHUB_ENV}"
           fi
 
       - name: Install ansible-lint
-        run: pip install ansible-lint==${{ env.LINT_VER }}
+        run: pip install ansible-lint=="${ANSIBLE_LINT_VER}"
 
       - name: Configure Red Hat Ansible Automation Hub
         if: ${{ inputs.automation-hub }}

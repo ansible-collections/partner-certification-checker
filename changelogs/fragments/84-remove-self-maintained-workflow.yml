@@ -1,0 +1,2 @@
+removed_features:
+  - Removed the self-maintained certification workflow variant so partners use the maintained reusable workflow and avoid version or configuration drift.

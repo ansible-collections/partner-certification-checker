@@ -1,6 +1,6 @@
 # Red Hat Partner Certification Checker
 
-Use this reusable GitHub Actions workflow to check whether an Ansible collection is ready for certification on Red Hat Ansible Automation Hub.
+This repository contains a reusable GitHub Actions workflow to check whether an Ansible collection is ready for certification on Red Hat Ansible Automation Hub.
 
 The workflow helps Red Hat partners catch common certification issues before uploading a collection to Automation Hub.
 
