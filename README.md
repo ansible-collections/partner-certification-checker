@@ -48,18 +48,7 @@ Add the certification workflow to your collection repository.
 
 ## Add Ansible Lint configuration
 
-Add an [.ansible-lint](https://github.com/ansible-collections/partner-certification-checker/blob/main/.ansible-lint) file to the root of your collection repository.
-
-Use `exclude_paths` for files and folders that are not part of the collection itself, such as `.github/`.
-
-Example:
-
-```yaml
----
-exclude_paths:
-  - .github/
-```
-
+Add an [.ansible-lint](https://raw.githubusercontent.com/ansible-collections/partner-certification-requirements/refs/heads/main/docs/.ansible-lint) file to the root of your collection repository.
 This prevents unrelated files from causing Ansible Lint failures.
 
 ## Keep the workflow updated
