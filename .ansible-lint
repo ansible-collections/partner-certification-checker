@@ -1,7 +1,10 @@
 ---
+profile: production
+
 exclude_paths:
-  # - .github/
-  - changelogs/
-  - tests/
-  - meta/
+  - tests/integration
+  - tests/unit
   - extensions/molecule
+  - changelogs
+  - docs
+  - .ansible
