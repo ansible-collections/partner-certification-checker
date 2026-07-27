@@ -80,6 +80,9 @@ jobs:
       - name: Install ansible-core
         run: pip install ansible-core=="${CORE_VER}"
 
+      - name: Install distlib required by ansible-galaxy build
+        run: pip install "distlib>=0.3.9"
+
       - name: Install galaxy-importer
         shell: bash
         run: pip install galaxy-importer=="${GALAXY_IMPORTER_VER}"
