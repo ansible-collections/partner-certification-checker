@@ -1,0 +1,2 @@
+bugfix:
+  - certification-reusable.yml - Add the missing distlib Python library for the build-import job required to run `ansible-galaxy collection build`.
