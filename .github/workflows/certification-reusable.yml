@@ -143,6 +143,9 @@ jobs:
       - name: Install ansible-lint
         run: pip install ansible-lint=="${ANSIBLE_LINT_VER}"
 
+      - name: Install distlib required by ansible-galaxy build
+        run: pip install "distlib>=0.3.9"
+
       - name: Configure Red Hat Ansible Automation Hub
         if: ${{ inputs.automation-hub }}
         uses: ansible-collections/partner-certification-checker/.github/actions/configure-automation-hub@6842bb15f8930bcb04e2b4d50bb4348d0040955f
