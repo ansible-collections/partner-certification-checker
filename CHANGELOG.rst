@@ -4,6 +4,20 @@ Partner Certification Checker Release Notes
 
 .. contents:: Topics
 
+v4.0.0
+======
+
+Removed Features (previously deprecated)
+----------------------------------------
+
+- Removed the self-maintained certification workflow variant so partners use the maintained reusable workflow and avoid version or configuration drift.
+
+Bugfixes
+--------
+
+- certification-reusable.yml - Add the missing distlib Python library for the build-import and lint jobs required to run `ansible-galaxy collection build`.
+- certification-reusable.yml - Install ansible-core and ansible-lint together in a single pip command to ensure version pins are synchronized and prevent import errors (https://github.com/ansible-collections/partner-certification-checker/issues/93).
+
 v3.0.0
 ======
 

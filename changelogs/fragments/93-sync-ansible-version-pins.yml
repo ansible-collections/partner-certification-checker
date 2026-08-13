@@ -1,2 +1,0 @@
-bugfixes:
-  - certification-reusable.yml - Install ansible-core and ansible-lint together in a single pip command to ensure version pins are synchronized and prevent import errors (https://github.com/ansible-collections/partner-certification-checker/issues/93).

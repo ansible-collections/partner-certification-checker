@@ -1,2 +1,0 @@
-trivial:
-  - certification-reusable.yml - Centralize pinned tool versions at the workflow level for easier maintenance.
