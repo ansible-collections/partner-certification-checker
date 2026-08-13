@@ -146,14 +146,17 @@ jobs:
       # because ansible.parsing.yaml.constructor was removed.
       # Use ansible-lint >= 25.2.0 for ansible-core 2.19+.
       - name: Determine compatible ansible-lint version based on ansible-core version
-        env:
-          CORE_VER: ${{ inputs.ansible-core-version }}
         run: |
-          major_minor=$(echo "${CORE_VER}" | cut -d. -f1,2)
-          minor=$(echo "${major_minor}" | cut -d. -f2)
-          if [ "${minor}" -ge 19 ]; then
-            echo "LINT_VER=25.2.0" >> "${GITHUB_ENV}"
-          fi
+          installed_ver=$(python -c "from importlib.metadata import version; print(version('ansible-core'))" 2>/dev/null || echo "0.0.0")
+          input_ver="${{ inputs.ansible-core-version }}"
+          # Use the higher of the installed version and the input version
+          for ver in "${installed_ver}" "${input_ver}"; do
+            minor=$(echo "${ver}" | cut -d. -f2)
+            if [ "${minor}" -ge 19 ]; then
+              echo "LINT_VER=25.2.0" >> "${GITHUB_ENV}"
+              break
+            fi
+          done
 
       - name: Install ansible-lint
         run: pip install ansible-lint==${{ env.LINT_VER }}
