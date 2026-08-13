@@ -7,6 +7,11 @@ Partner Certification Checker Release Notes
 v4.0.0
 ======
 
+Minor Changes
+-------------
+
+- Update the ``ansible-community/ansible-test-gh-action`` action pin to commit ``9cdbd323f59530c0f43669f1168c8ef4a8c06d41`` (https://github.com/ansible-community/ansible-test-gh-action/commit/9cdbd323f59530c0f43669f1168c8ef4a8c06d41).
+
 Removed Features (previously deprecated)
 ----------------------------------------
 
