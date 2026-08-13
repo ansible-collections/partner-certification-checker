@@ -126,9 +126,6 @@ jobs:
         with:
           python-version: ${{ inputs.origin-python-version }}
 
-      - name: Install ansible-core
-        run: pip install ansible-core=="${CORE_VER}"
-
       # The default ansible-lint version is incompatible with ansible-core >= 2.19
       # because ansible.parsing.yaml.constructor was removed.
       # Use the ansible-core 2.19+ ansible-lint version for those runs.
@@ -140,8 +137,8 @@ jobs:
             echo "ANSIBLE_LINT_VER=${ANSIBLE_LINT_CORE_2_19_VER}" >> "${GITHUB_ENV}"
           fi
 
-      - name: Install ansible-lint
-        run: pip install ansible-lint=="${ANSIBLE_LINT_VER}"
+      - name: Install ansible-lint and ansible-core
+        run: pip install ansible-lint=="${ANSIBLE_LINT_VER}" ansible-core=="${CORE_VER}"
 
       - name: Install distlib required by ansible-galaxy build
         run: pip install "distlib>=0.3.9"
