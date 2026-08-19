@@ -41,6 +41,14 @@ on:
           repository).
         default: "."
         type: string
+      collection-deps:
+        description: >-
+          Specify collection dependencies to install during sanity checks.
+          The workflow does not automatically install dependencies from galaxy.yml
+          or requirements.yml. You can specify multiple collections separated
+          with spaces; for example, "kubernetes.core amazon.aws".
+        default: ""
+        type: string
       automation-hub:
         type: boolean
         description: >-
@@ -192,5 +200,6 @@ jobs:
           ansible-core-version: ${{ matrix.ansible }}
           origin-python-version: ${{ inputs.origin-python-version }}
           testing-type: sanity
+          test-deps: ${{ inputs.collection-deps }}
           collection-root: ${{ inputs.collection-root }}
           pull-request-change-detection: false
