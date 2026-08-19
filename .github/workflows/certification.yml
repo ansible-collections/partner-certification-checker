@@ -43,6 +43,7 @@ jobs:
     # with:
     #   ansible-core-version: '2.18.0'
     #   collection-root: 'ansible_collections/junipernetworks/junos'
+    #   collection-deps: 'kubernetes.core amazon.aws'
     #   automation-hub: true
     # Uncomment the lines below if you have 'automation-hub: true' and need to install collections from Red Hat Ansible Automation Hub.
     # This requires setting a repository secret called 'AH_TOKEN' which value contains a Red Hat Ansible Automation Hub token.
