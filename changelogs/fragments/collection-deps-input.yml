@@ -1,0 +1,2 @@
+minor_changes:
+  - Add a ``collection-deps`` input to install collections during ``ansible-test sanity`` checks. The input corresponds to the ``test-deps`` input in ``ansible-community/ansible-test-gh-action``.
