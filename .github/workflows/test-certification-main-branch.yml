@@ -40,3 +40,15 @@ jobs:
     uses: ./.github/workflows/certification-reusable.yml
     with:
       collection-root: "tests/fixtures/collection"
+
+  # Test installation of collection dependency
+  call-collection-deps:
+    uses: ./.github/workflows/certification-reusable.yml
+    with:
+      collection-deps: "kubernetes.core"
+
+  # Test installation of multiple collection dependencies
+  call-multiple-collection-deps:
+    uses: ./.github/workflows/certification-reusable.yml
+    with:
+      collection-deps: "kubernetes.core amazon.aws ansible.mcp"
