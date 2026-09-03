@@ -20,8 +20,8 @@ on:
       ansible-core-version:
         description: >-
           ansible-core version to use for build-import and lint jobs
-          (e.g. 2.16.0). Sanity tests use a fixed matrix of ansible-core
-          stable branches and are not affected by this input.
+          (e.g. 2.16.0). To control which ansible-core versions are
+          used for sanity tests, see the skip-sanity-versions input.
         required: false
         default: "2.16.0"
         type: string
@@ -56,6 +56,17 @@ on:
           for ansible-galaxy to use when installing collections.
           The 'AH_TOKEN' secret must be provided when using this input.
         default: false
+      skip-sanity-versions:
+        description: >-
+          Space-separated list of ansible-core stable branches to
+          skip in sanity tests (e.g. "stable-2.16" or
+          "stable-2.16 stable-2.18"). When empty, the workflow
+          auto-detects the minimum version from requires_ansible
+          in meta/runtime.yml and filters the matrix accordingly.
+          Set this input to override auto-detection.
+        required: false
+        default: ""
+        type: string
     secrets:
       AH_TOKEN:
         description: >-
@@ -170,17 +181,76 @@ jobs:
           fi
           ansible-lint --profile=production
 
+  # Compute the sanity matrix by auto-detecting the minimum
+  # ansible-core version from meta/runtime.yml or by using the
+  # explicit skip-sanity-versions input as an override.
+  compute-sanity-matrix:
+    name: "Compute sanity matrix"
+    runs-on: ubuntu-latest
+    env:
+      # Ansible Core versions aligned with Downstream Execution Environments.
+      ALL_SANITY_VERSIONS: "stable-2.16 stable-2.18 stable-2.20"
+      SKIP_VERSIONS: ${{ inputs.skip-sanity-versions }}
+      COLLECTION_ROOT: ${{ inputs.collection-root }}
+    outputs:
+      matrix: ${{ steps.filter.outputs.matrix }}
+    steps:
+      - name: Checkout
+        if: ${{ inputs.skip-sanity-versions == '' }}
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+          sparse-checkout: |
+            ${{ inputs.collection-root }}/meta/runtime.yml
+          sparse-checkout-cone-mode: false
+
+      - name: Filter sanity versions
+        id: filter
+        shell: python
+        run: |
+          import json, os, re
+
+          all_versions = os.environ["ALL_SANITY_VERSIONS"].split()
+          skip = os.environ.get("SKIP_VERSIONS", "").split()
+
+          if skip:
+              filtered = [v for v in all_versions if v not in skip]
+          else:
+              filtered = list(all_versions)
+              root = os.environ.get("COLLECTION_ROOT", ".")
+              runtime_path = os.path.join(root, "meta", "runtime.yml")
+              if os.path.isfile(runtime_path):
+                  with open(runtime_path) as f:
+                      match = re.search(
+                          r"requires_ansible:\s*[\"']?>=?\s*(\d+)\.(\d+)",
+                          f.read(),
+                      )
+                  if match:
+                      min_minor = int(match.group(2))
+                      filtered = [
+                          v for v in all_versions
+                          if (m := re.search(r"\.(\d+)", v)) and int(m.group(1)) >= min_minor
+                      ]
+                      print(f"Auto-detected requires_ansible >= {match.group(1)}.{match.group(2)}")
+
+          if not filtered:
+              print("::error::All sanity versions were filtered out. At least one version must remain.")
+              raise SystemExit(1)
+
+          matrix = json.dumps(filtered)
+          print(f"Sanity matrix: {matrix}")
+
+          with open(os.environ["GITHUB_OUTPUT"], "a") as f:
+              f.write(f"matrix={matrix}\n")
+
   # Run sanity checks against the collection
   sanity:
+    needs: compute-sanity-matrix
     name: Sanity (Ⓐ${{ matrix.ansible }})
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        ansible:
-          # Ansible Core versions aligned with Downstream Execution Environments.
-          - stable-2.16
-          - stable-2.18
-          - stable-2.20
+        ansible: ${{ fromJSON(needs.compute-sanity-matrix.outputs.matrix) }}
 
     steps:
       - name: Configure Red Hat Ansible Automation Hub

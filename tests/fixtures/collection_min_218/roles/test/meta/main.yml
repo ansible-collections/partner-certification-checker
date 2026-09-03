@@ -1,0 +1,9 @@
+galaxy_info:
+  author: Ansible community and partner engineering team
+  description: Test role.
+  company: Red Hat
+  license: GPL-3.0-only
+  min_ansible_version: "2.16"
+  galaxy_tags: []
+
+dependencies: []

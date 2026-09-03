@@ -1,1 +1,2 @@
 tests/fixtures/collection/plugins/modules/sample_module.py shebang
+tests/fixtures/collection_min_218/plugins/modules/sample_module.py shebang

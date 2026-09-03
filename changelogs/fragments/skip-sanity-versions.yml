@@ -1,0 +1,7 @@
+minor_changes:
+  - >-
+    certification-reusable.yml - Auto-detect ``requires_ansible`` from
+    ``meta/runtime.yml`` and filter the sanity test matrix to skip
+    unsupported ansible-core versions. Add ``skip-sanity-versions``
+    input to override auto-detection when needed
+    (https://github.com/ansible-collections/partner-certification-checker/issues/103).

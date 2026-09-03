@@ -1,0 +1,2 @@
+plugins/modules/sample_module.py compile-2.7
+plugins/modules/sample_module.py import-2.7

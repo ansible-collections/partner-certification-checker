@@ -21,34 +21,56 @@ jobs:
   # Test with the default ansible-core version (currently 2.16.0).
   # Sanity tests automatically run against stable-2.16, 2.18, and 2.20.
   call-default:
-    uses: ./.github/workflows/certification-reusable.yml
+    uses: ./.github/workflows/certification-reusable.yml # zizmor: ignore[self-repository]
 
   # Test build-import and lint with ansible-core 2.18.x
   call-2-18:
-    uses: ./.github/workflows/certification-reusable.yml
+    uses: ./.github/workflows/certification-reusable.yml # zizmor: ignore[self-repository]
     with:
       ansible-core-version: '2.18.0'
 
   # Test build-import and lint with ansible-core 2.20.x
   call-2-20:
-    uses: ./.github/workflows/certification-reusable.yml
+    uses: ./.github/workflows/certification-reusable.yml # zizmor: ignore[self-repository]
     with:
       ansible-core-version: '2.20.0'
 
   # Test when the collection root is not at the root of the repository
   call-collection-root:
-    uses: ./.github/workflows/certification-reusable.yml
+    uses: ./.github/workflows/certification-reusable.yml # zizmor: ignore[self-repository]
     with:
       collection-root: "tests/fixtures/collection"
 
+  # Test auto-detection of requires_ansible filtering.
+  # The fixture declares >=2.18.0 so stable-2.16 should be skipped.
+  call-auto-detect-min-218:
+    uses: ./.github/workflows/certification-reusable.yml # zizmor: ignore[self-repository]
+    with:
+      ansible-core-version: '2.18.0'
+      collection-root: "tests/fixtures/collection_min_218"
+
+  # Test skipping a single sanity version
+  call-skip-sanity-2-16:
+    uses: ./.github/workflows/certification-reusable.yml # zizmor: ignore[self-repository]
+    with:
+      ansible-core-version: '2.18.0'
+      skip-sanity-versions: 'stable-2.16'
+
+  # Test skipping multiple sanity versions
+  call-skip-sanity-2-16-2-18:
+    uses: ./.github/workflows/certification-reusable.yml # zizmor: ignore[self-repository]
+    with:
+      ansible-core-version: '2.20.0'
+      skip-sanity-versions: 'stable-2.16 stable-2.18'
+
   # Test installation of collection dependency
   call-collection-deps:
-    uses: ./.github/workflows/certification-reusable.yml
+    uses: ./.github/workflows/certification-reusable.yml # zizmor: ignore[self-repository]
     with:
       collection-deps: "kubernetes.core"
 
   # Test installation of multiple collection dependencies
   call-multiple-collection-deps:
-    uses: ./.github/workflows/certification-reusable.yml
+    uses: ./.github/workflows/certification-reusable.yml # zizmor: ignore[self-repository]
     with:
       collection-deps: "kubernetes.core amazon.aws ansible.mcp"

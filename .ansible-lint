@@ -4,6 +4,7 @@ profile: production
 exclude_paths:
   - tests/integration
   - tests/unit
+  - tests/fixtures/collection_min_218
   - extensions/molecule
   - changelogs
   - docs
