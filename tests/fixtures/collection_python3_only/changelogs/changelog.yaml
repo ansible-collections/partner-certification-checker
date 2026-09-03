@@ -1,0 +1,9 @@
+ancestor: null
+releases:
+  0.1.0:
+    changes:
+      minor_changes:
+        - Example changelog entry.
+    fragments:
+      - test.yml
+    release_date: "2026-03-23"

@@ -1,0 +1,2 @@
+minor_changes:
+  - Add a ``sanity-target-python-versions`` input to restrict ``ansible-test sanity`` checks to specific target Python versions (e.g. ``'["3.9", "3.10", "3.11"]'``) across every ansible-core branch in the sanity matrix, instead of the default of testing every Python version each branch supports, which includes Python 2.7 for ``stable-2.16`` (https://github.com/ansible-collections/partner-certification-checker/issues/106).

@@ -52,3 +52,15 @@ jobs:
     uses: ./.github/workflows/certification-reusable.yml
     with:
       collection-deps: "kubernetes.core amazon.aws ansible.mcp"
+
+  # Test that sanity-target-python-versions restricts sanity checks to the
+  # listed Python versions for every ansible-core branch in the matrix.
+  # The fixture collection requires ansible-core >= 2.16.0 but only
+  # supports Python 3, and carries no compile-2.7/import-2.7 sanity
+  # ignore entries, so this job fails if Python 2.7 sanity checks still
+  # run against stable-2.16.
+  call-sanity-target-python-versions:
+    uses: ./.github/workflows/certification-reusable.yml
+    with:
+      collection-root: "tests/fixtures/collection_python3_only"
+      sanity-target-python-versions: '["3.10", "3.11", "3.12"]'

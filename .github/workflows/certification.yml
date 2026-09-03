@@ -45,6 +45,15 @@ jobs:
     #   collection-root: 'ansible_collections/junipernetworks/junos'
     #   collection-deps: 'kubernetes.core amazon.aws'
     #   automation-hub: true
+    #   # By default, sanity checks run against every Python version each
+    #   # ansible-core branch in the sanity matrix supports, which includes
+    #   # Python 2.7 for stable-2.16. Set sanity-target-python-versions to
+    #   # restrict sanity checks to specific Python versions instead, applied
+    #   # across every ansible-core branch in the matrix. For example, if your
+    #   # collection declares 'requires_ansible: ">=2.16.0"' but only supports
+    #   # Python 3, use this input to skip the Python 2.7 sanity checks that
+    #   # stable-2.16 would otherwise run by default:
+    #   sanity-target-python-versions: '["3.9", "3.10", "3.11"]'
     # Uncomment the lines below if you have 'automation-hub: true' and need to install collections from Red Hat Ansible Automation Hub.
     # This requires setting a repository secret called 'AH_TOKEN' which value contains a Red Hat Ansible Automation Hub token.
     # secrets:

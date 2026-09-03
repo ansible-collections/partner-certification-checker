@@ -56,6 +56,18 @@ on:
           for ansible-galaxy to use when installing collections.
           The 'AH_TOKEN' secret must be provided when using this input.
         default: false
+      sanity-target-python-versions:
+        description: >-
+          JSON array of target Python versions to run ansible-test sanity
+          checks against, for example '["3.9", "3.10", "3.11"]'. Each
+          version is applied to every ansible-core branch in the sanity
+          matrix, so all versions listed must be supported by every branch
+          in that matrix or the corresponding sanity job will fail. If
+          left empty, ansible-test runs sanity checks against every Python
+          version supported by each ansible-core branch by default, which
+          includes Python 2.7 for stable-2.16.
+        default: ""
+        type: string
     secrets:
       AH_TOKEN:
         description: >-
@@ -172,15 +184,24 @@ jobs:
 
   # Run sanity checks against the collection
   sanity:
-    name: Sanity (Ⓐ${{ matrix.ansible }})
+    name: >-
+      Sanity (Ⓐ${{ matrix.ansible }}${{
+        matrix.python-version && format(' 🐍{0}', matrix.python-version) || ''
+      }})
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         ansible:
           # Ansible Core versions aligned with Downstream Execution Environments.
           - stable-2.16
           - stable-2.18
           - stable-2.20
+        # Defaults to a single empty entry, meaning ansible-test decides
+        # which target Python versions to test for each ansible-core
+        # branch. When sanity-target-python-versions is set, it is applied
+        # across every ansible-core branch above.
+        python-version: ${{ fromJson(inputs.sanity-target-python-versions || '[""]') }}
 
     steps:
       - name: Configure Red Hat Ansible Automation Hub
@@ -199,6 +220,7 @@ jobs:
         with:
           ansible-core-version: ${{ matrix.ansible }}
           origin-python-version: ${{ inputs.origin-python-version }}
+          target-python-version: ${{ matrix.python-version }}
           testing-type: sanity
           test-deps: ${{ inputs.collection-deps }}
           collection-root: ${{ inputs.collection-root }}

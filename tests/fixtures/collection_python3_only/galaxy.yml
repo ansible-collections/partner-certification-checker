@@ -1,0 +1,21 @@
+---
+namespace: "local"
+name: "python3_only_collection"
+version: 0.1.0
+readme: README.md
+authors:
+  - Ansible community and partner engineering team
+
+description: >-
+  Minimal Python 3-only test collection for validating the
+  sanity-target-python-versions input
+license_file: LICENSE
+
+tags: ["tools", "certification", "workflows", "test"]
+
+dependencies: {}
+
+repository: https://github.com/ansible-collections/partner-certification-checker
+documentation: https://github.com/ansible-collections/partner-certification-checker/blob/main/README.md
+homepage: https://github.com/ansible-collections/partner-certification-checker/blob/main/README.md
+issues: https://github.com/ansible-collections/partner-certification-checker/issues
