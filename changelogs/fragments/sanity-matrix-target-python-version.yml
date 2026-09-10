@@ -1,0 +1,2 @@
+major_changes:
+  - Set Python 3.12 as the target Python version in the sanity matrix for each ansible-core stable branch. Previously, sanity tests ran against all Python versions supported by each ansible-core version. This change aligns the checker with downstream Execution Environments, which only ship Python 3.12.

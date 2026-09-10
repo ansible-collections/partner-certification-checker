@@ -237,7 +237,7 @@ jobs:
               print("::error::All sanity versions were filtered out. At least one version must remain.")
               raise SystemExit(1)
 
-          matrix = json.dumps(filtered)
+          matrix = json.dumps([{"ansible": v, "python": "3.12"} for v in filtered])
           print(f"Sanity matrix: {matrix}")
 
           output_path = Path(os.environ["GITHUB_OUTPUT"])
@@ -246,11 +246,11 @@ jobs:
   # Run sanity checks against the collection
   sanity:
     needs: compute-sanity-matrix
-    name: Sanity (Ⓐ${{ matrix.ansible }})
+    name: Sanity (Ⓐ${{ matrix.ansible }}) (Python ${{ matrix.python }})
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        ansible: ${{ fromJSON(needs.compute-sanity-matrix.outputs.matrix) }}
+        include: ${{ fromJSON(needs.compute-sanity-matrix.outputs.matrix) }}
 
     steps:
       - name: Configure Red Hat Ansible Automation Hub
@@ -269,6 +269,7 @@ jobs:
         with:
           ansible-core-version: ${{ matrix.ansible }}
           origin-python-version: ${{ inputs.origin-python-version }}
+          target-python-version: ${{ matrix.python }}
           testing-type: sanity
           test-deps: ${{ inputs.collection-deps }}
           collection-root: ${{ inputs.collection-root }}
