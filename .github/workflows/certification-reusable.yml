@@ -48,6 +48,13 @@ on:
           with spaces; for example, "kubernetes.core amazon.aws".
         default: ""
         type: string
+      requirements-file:
+        description: >-
+          Relative path from the collection root to a collection requirements.yml
+          file to install before sanity checks. Dependencies are installed into
+          the collection checkout so ansible-test can use them.
+        default: ""
+        type: string
       automation-hub:
         type: boolean
         description: >-
@@ -260,5 +267,11 @@ jobs:
           target-python-version: ${{ matrix.python }}
           testing-type: sanity
           test-deps: ${{ inputs.collection-deps }}
+          pre-test-cmd: >-
+            ${{ inputs.requirements-file != '' &&
+                format(
+                  'ansible-galaxy collection install -r {0} -p .',
+                  toJSON(inputs.requirements-file)
+                ) || '' }}
           collection-root: ${{ inputs.collection-root }}
           pull-request-change-detection: false

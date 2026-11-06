@@ -97,3 +97,17 @@ However those sanity tests will still run as part of the import process in Autom
 
 To override auto-detection, specify any ansible-core sanity branches that your collection does not support with the `skip-sanity-versions` input.
 You can find the list of sanity branches that the workflow runs in the [Tested ansible-core branches and Python versions](https://github.com/ansible-collections/partner-certification-checker#tested-ansible-core-branches-and-python-versions) table.
+
+## Installing dependencies from a requirements file
+
+If your collection keeps sanity-test dependencies in a `requirements.yml` file, pass its path relative to the collection root with the `requirements-file` input:
+
+```yaml
+jobs:
+  certify:
+    uses: ansible-collections/partner-certification-checker/.github/workflows/certification-reusable.yml@vX.Y.Z
+    with:
+      requirements-file: tests/integration/requirements.yml
+```
+
+Replace `vX.Y.Z` with a released checker version that supports this input. The reusable workflow installs the listed collections into the collection checkout before running `ansible-test sanity`. The default is an empty string, which skips this installation.
