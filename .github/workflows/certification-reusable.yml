@@ -55,6 +55,13 @@ on:
           the collection checkout so ansible-test can use them.
         default: ""
         type: string
+      pre-test-cmd:
+        description: >-
+          Optional command to run before sanity testing. Use this when dependencies
+          need to be prepared from the collection itself, for example by building
+          and installing its collection artifact.
+        default: ""
+        type: string
       automation-hub:
         type: boolean
         description: >-
@@ -273,5 +280,6 @@ jobs:
                   'ansible-galaxy collection install -r {0} -p .',
                   toJSON(inputs.requirements-file)
                 ) || '' }}
+            ${{ inputs.pre-test-cmd }}
           collection-root: ${{ inputs.collection-root }}
           pull-request-change-detection: false

@@ -111,3 +111,14 @@ jobs:
 ```
 
 Replace `vX.Y.Z` with a released checker version that supports this input. The reusable workflow installs the listed collections into the collection checkout before running `ansible-test sanity`. The default is an empty string, which skips this installation.
+
+If your collection declares dependencies in `galaxy.yml` and you want Ansible Galaxy to resolve them while installing the collection, use `pre-test-cmd` to build and install the collection artifact before sanity tests:
+
+```yaml
+with:
+  pre-test-cmd: >-
+    ansible-galaxy collection build . --output-path /tmp &&
+    ansible-galaxy collection install /tmp/cloud-aws_ops-*.tar.gz -p ansible_collections
+```
+
+The `pre-test-cmd` input is forwarded to `ansible-test-gh-action` and runs before sanity testing. It can be used for other collection-specific setup commands as well.
