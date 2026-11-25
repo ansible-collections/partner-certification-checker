@@ -1,0 +1,6 @@
+bugfixes:
+  - >-
+    certification-reusable - the build-import job now fails when
+    galaxy-importer reports errors (e.g. missing plugin documentation
+    detected by ansible-doc) instead of silently passing
+    (https://github.com/ansible-collections/partner-certification-checker/issues/120).

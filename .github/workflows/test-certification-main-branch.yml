@@ -74,3 +74,49 @@ jobs:
     uses: ./.github/workflows/certification-reusable.yml # zizmor: ignore[self-repository]
     with:
       collection-deps: "kubernetes.core amazon.aws ansible.mcp"
+
+  # Regression test: build-import must detect galaxy-importer errors
+  # for collections with undocumented plugins (issue #120).
+  # Cannot call the reusable workflow here because GitHub Actions
+  # does not support continue-on-error on reusable workflow calls,
+  # so we replicate the build-import error detection directly.
+  test-build-import-error-detection:
+    name: "Test: build-import detects missing docs (#120)"
+    runs-on: ubuntu-latest
+    env:
+      GALAXY_IMPORTER_VER: "0.4.39"
+      CORE_VER: "2.16.19"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: >-
+          pip install
+          ansible-core=="${CORE_VER}"
+          "distlib>=0.3.9"
+          galaxy-importer=="${GALAXY_IMPORTER_VER}"
+
+      - name: Run galaxy-importer on fixture with missing docs
+        shell: bash
+        run: |
+          python -m galaxy_importer.main \
+            --git-clone-path "tests/fixtures/collection_missing_docs" \
+            --output-path /tmp 2>&1 | tee /tmp/galaxy-importer.log
+
+      - name: Verify error detection catches missing documentation
+        shell: bash
+        run: |
+          if ! grep -q '^ERROR:' /tmp/galaxy-importer.log; then
+            echo "::error::Expected galaxy-importer to report errors for missing plugin documentation"
+            exit 1
+          fi
+          echo "Confirmed: error detection correctly catches missing documentation"
+          grep '^ERROR:' /tmp/galaxy-importer.log
