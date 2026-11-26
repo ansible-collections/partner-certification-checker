@@ -1,0 +1,9 @@
+ancestor: null
+releases:
+  0.1.0:
+    changes:
+      minor_changes:
+        - Initial fixture for testing issue 120.
+    fragments:
+      - test.yml
+    release_date: "2026-11-25"

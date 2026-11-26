@@ -124,7 +124,19 @@ jobs:
 
       - name: Build the collection tarball and run galaxy importer on it
         shell: bash
-        run: python -m galaxy_importer.main --git-clone-path "${COLLECTION_ROOT}" --output-path /tmp
+        run: |
+          python -m galaxy_importer.main --git-clone-path "${COLLECTION_ROOT}" --output-path /tmp \
+            2>&1 | tee /tmp/galaxy-importer.log
+
+      - name: Check galaxy-importer output for errors
+        if: always()
+        shell: bash
+        run: |
+          if [ -f /tmp/galaxy-importer.log ] && grep -q '^ERROR:' /tmp/galaxy-importer.log; then
+            echo "::error::galaxy-importer reported errors during import"
+            grep '^ERROR:' /tmp/galaxy-importer.log
+            exit 1
+          fi
 
   # Run ansible-lint with profile "production"
   lint:
