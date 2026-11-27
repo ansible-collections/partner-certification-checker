@@ -4,6 +4,21 @@ Partner Certification Checker Release Notes
 
 .. contents:: Topics
 
+v7.0.0
+======
+
+Release Summary
+---------------
+
+This is a major release of the Red Hat partner certification checker.
+This changelog contains all changes to the workflows in this project
+that have been made after the previous release.
+
+Breaking Changes / Porting Guide
+--------------------------------
+
+- certification-reusable - the build-import job now fails when galaxy-importer reports errors (e.g. missing plugin documentation detected by ansible-doc) instead of silently passing. Collections with undocumented plugins that previously passed certification will now fail. To fix, add ``DOCUMENTATION`` blocks or sidecar YAML documentation files for all plugins. Run ``ansible-doc --type <plugin_type> <fqcn>`` locally to verify each plugin's documentation renders correctly (https://github.com/ansible-collections/partner-certification-checker/issues/120).
+
 v6.0.0
 ======
 
